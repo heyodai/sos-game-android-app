@@ -1,39 +1,64 @@
 <template>
   <v-app>
-    <v-navigation-drawer app>
-      <!-- -->
-    </v-navigation-drawer>
+    <v-app-bar app color="primary" dark>
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
 
-    <v-app-bar app>
-      <!-- -->
+        <v-img
+          alt="Vuetify Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+          width="100"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Latest {{ foo }}</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
     </v-app-bar>
 
-    <!-- Sizes your content based upon application components -->
     <v-main>
-      <!-- Provides the application the proper gutter -->
-      <v-container fluid>
-        test
-      </v-container>
+      <HelloWorld />
     </v-main>
-
-    <v-footer app>
-      <!-- -->
-    </v-footer>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld";
+import HelloWorld from "./components/HelloWorld";
+import Echo from "./echo.js";
 
 export default {
   name: "App",
 
   components: {
-    // HelloWorld,
+    HelloWorld,
+    // Echo,
   },
 
   data: () => ({
+    foo: "bar",
     //
   }),
+  async created() {
+    const { value } = await Echo.echo({ value: "Hello World!" });
+    // console.log("Response from native:", value);
+    this.foo = value;
+  },
 };
 </script>
