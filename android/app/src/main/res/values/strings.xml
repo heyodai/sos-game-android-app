@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">sos-game-android-app</string>
+    <string name="title_activity_main">sos-game-android-app</string>
+    <string name="package_name">dev.odai.sosgame</string>
+    <string name="custom_url_scheme">dev.odai.sosgame</string>
+</resources>
