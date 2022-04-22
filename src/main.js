@@ -5,10 +5,16 @@ import vuetify from './plugins/vuetify'
 
 import HomeScreen from "./screens/HomeScreen.vue"
 import MatchScreen from "./screens/MatchScreen.vue"
+import SetupScreen from "./screens/SetupScreen.vue"
+import CreditScreen from "./screens/CreditScreen.vue"
+import ReplayScreen from "./screens/ReplayScreen.vue"
 
 const routes = [
   { path: '/', component: HomeScreen },
   { path: '/match', component: MatchScreen },
+  { path: '/setup', component: SetupScreen },
+  { path: '/credits', component: CreditScreen },
+  { path: '/replay', component: ReplayScreen },
 ]
 
 const router = new VueRouter({
