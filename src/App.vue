@@ -34,30 +34,21 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld />
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 import Echo from "./echo.js";
 
 export default {
   name: "App",
-
-  components: {
-    HelloWorld,
-    // Echo,
-  },
-
   data: () => ({
     foo: "bar",
-    //
   }),
   async created() {
     const { value } = await Echo.echo({ value: "Hello World!" });
-    // console.log("Response from native:", value);
     this.foo = value;
   },
 };
