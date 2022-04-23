@@ -1,24 +1,15 @@
-# sos-game-android-app
+# SOS Game
 
-## Project setup
-```
-npm install
-```
+summary
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+table of contents
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Class Hierarchy
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Action System
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+To facilitate 
+## File Structure
+
+## Unit Tests
+## Development Resources
