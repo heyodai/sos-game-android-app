@@ -2,6 +2,12 @@
   <v-card>
     <v-icon>mdi-account</v-icon>
     <strong>{{ this.name }}</strong>
+    <v-switch
+      v-model="is_letter_s"
+      color="primary"
+      inset
+      :label="`${is_letter_s ? 'S' : 'O'}`"
+    ></v-switch>
   </v-card>
 </template>
 
@@ -11,6 +17,7 @@ export default {
   data() {
     return {
       name: "name",
+      is_letter_s: false,
     };
   },
   props: {

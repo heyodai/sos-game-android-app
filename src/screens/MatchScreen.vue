@@ -6,7 +6,7 @@
       <tbody>
         <tr v-for="i in size" :key="i">
           <td v-for="i in size" :key="i">
-            <v-btn color="primary" height="50" width="50">
+            <v-btn color="primary" height="45" width="45">
               <v-icon dark> mdi-minus </v-icon>
             </v-btn>
           </td>
@@ -39,9 +39,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  #game-board-table {
-    margin: 0 50%;
-  }
-</style>
