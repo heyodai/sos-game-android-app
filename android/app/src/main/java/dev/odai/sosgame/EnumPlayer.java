@@ -1,6 +1,7 @@
 package dev.odai.sosgame;
 
-public enum EnumPlayerColor {
+public enum EnumPlayer {
     RED,
     BLUE,
+    NULL,
 }
