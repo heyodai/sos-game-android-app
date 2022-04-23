@@ -13,7 +13,7 @@
       label="Board Size"
       v-model="board_size"
       min="3"
-      max="8"
+      max="5"
       step="1"
       thumb-label
       ticks
