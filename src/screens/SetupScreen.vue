@@ -32,7 +32,7 @@
     </v-container>
     <br />
 
-    <v-btn to="/" color="primary" elevation="2">
+    <v-btn @click.native="init_match()" color="primary" elevation="2">
       <v-icon left dark> mdi-fencing </v-icon>
       Start Match
     </v-btn>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: "SetupScreen",
   data() {
@@ -48,6 +49,11 @@ export default {
       game_mode: "",
     };
   },
+  methods: {
+    async init_match() {
+      this.$router.push(`/match/${this.board_size}/${this.game_mode}`)
+    }
+  }
 };
 </script>
 
