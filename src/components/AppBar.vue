@@ -1,18 +1,22 @@
 <template>
-  <v-app-bar app color="deep-purple accent-4" dense dark>
-    <v-toolbar-title>Page title</v-toolbar-title>
+  <v-app-bar app color="primary accent-4" dense dark>
+    <v-toolbar-title>Match</v-toolbar-title>
 
     <v-spacer></v-spacer>
 
+<router-link to="/">
     <v-btn icon>
+      
       <v-icon>mdi-exit-run</v-icon>
+      
     </v-btn>
+</router-link>
 
-    <v-btn icon>
+    <v-btn icon disabled>
       <v-icon>mdi-undo-variant</v-icon>
     </v-btn>
 
-    <v-btn icon>
+    <v-btn icon disabled>
       <v-icon>mdi-dots-vertical</v-icon>
     </v-btn>
   </v-app-bar>
