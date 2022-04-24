@@ -1,16 +1,16 @@
 <template>
   <v-app-bar app color="primary accent-4" dense dark>
-    <v-toolbar-title>Match</v-toolbar-title>
+    <v-toolbar-title
+      ><span id="app-bar-title">{{ this.mode }} Match</span></v-toolbar-title
+    >
 
     <v-spacer></v-spacer>
 
-<router-link to="/">
-    <v-btn icon>
-      
-      <v-icon>mdi-exit-run</v-icon>
-      
-    </v-btn>
-</router-link>
+    <router-link to="/">
+      <v-btn icon>
+        <v-icon>mdi-exit-run</v-icon>
+      </v-btn>
+    </router-link>
 
     <v-btn icon disabled>
       <v-icon>mdi-undo-variant</v-icon>
@@ -25,5 +25,19 @@
 <script>
 export default {
   name: "AppBar",
+  data() {
+    return {
+      mode: "",
+    };
+  },
+  created() {
+    this.mode = this.$route.params.mode;
+  },
 };
 </script>
+
+<style scoped>
+#app-bar-title {
+  text-transform: capitalize;
+}
+</style>
