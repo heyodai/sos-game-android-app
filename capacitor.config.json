@@ -1,6 +1,0 @@
-{
-  "appId": "dev.odai.sosgame",
-  "appName": "sos-game-android-app",
-  "webDir": "dist",
-  "bundledWebRuntime": false
-}
