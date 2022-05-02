@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+
+import HomeScreen from '../screens/HomeScreen.vue'
+import CreditsScreen from '../screens/CreditsScreen.vue'
+import ReplayScreen from '../screens/ReplayScreen.vue'
+import SetupScreen from '../screens/SetupScreen.vue'
+import MatchScreen from '../screens/MatchScreen.vue'
 
 Vue.use(VueRouter)
 
@@ -8,16 +13,28 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeScreen
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/credits',
+    name: 'credits',
+    component: CreditsScreen
+  },
+  {
+    path: '/replay',
+    name: 'replay',
+    component: ReplayScreen
+  },
+  {
+    path: '/setup',
+    name: 'setup',
+    component: SetupScreen
+  },
+  {
+    path: '/match',
+    name: 'match',
+    component: MatchScreen
+  },
 ]
 
 const router = new VueRouter({
