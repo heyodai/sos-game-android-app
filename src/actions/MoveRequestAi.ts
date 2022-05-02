@@ -1,4 +1,4 @@
-import { PlayerColor } from '../enums'
+import { PlayerColor } from "@/enums"
 
 class MoveRequestAi {
     public player: PlayerColor
