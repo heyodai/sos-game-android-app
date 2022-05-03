@@ -1,4 +1,4 @@
-import { PlayerColor } from "@/enums"
+import { PlayerColor, } from "@/enums"
 
 class Player {
     public readonly color: PlayerColor
