@@ -18,7 +18,7 @@ class Board {
         this.content = [];
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < columns; j++) {
-                let location = new Coordinates(i, j)
+                const location = new Coordinates(i, j)
                 this.content[i][j] = new Square(location)
             }
         }

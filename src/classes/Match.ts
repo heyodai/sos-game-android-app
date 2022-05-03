@@ -23,3 +23,5 @@ class Match {
         this.blue_player = new Player(PlayerColor.BLUE, is_blue_human)
     }
 }
+
+export default Match
