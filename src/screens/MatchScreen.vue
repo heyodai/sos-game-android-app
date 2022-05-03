@@ -16,7 +16,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
 
-            <v-btn color="green darken-1" text @click="dialog = false">
+            <v-btn color="green darken-1" text @click="end_match">
               End Match
             </v-btn>
 
@@ -65,6 +65,8 @@
         </v-row>
       </v-card>
 
+      <br />
+
       <v-card>
         <table>
           <tbody>
@@ -78,6 +80,8 @@
           </tbody>
         </table>
       </v-card>
+
+      <br />
 
       <v-card>
         <v-row>
@@ -160,7 +164,7 @@ export default Vue.extend({
       );
     },
     end_match() {
-      console.log("It works!");
+      this.$router.push('/')
     },
     get_elapsed_time() {
       return 0;
