@@ -34,4 +34,9 @@ enum UiScreen {
     MATCH,
 }
 
-export { GameMode, PlayerColor, Letter, Direction, UiScreen, }
+enum MatchTransition {
+    START,
+    END,
+}
+
+export { GameMode, PlayerColor, Letter, Direction, UiScreen, MatchTransition, }
