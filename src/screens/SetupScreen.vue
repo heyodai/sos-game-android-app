@@ -38,7 +38,7 @@
         hide-details
       ></v-checkbox>
 
-      <v-btn id="start-btn" class="primary">
+      <v-btn id="start-btn" class="primary" @click="build_match_url()">
         <v-icon dark left> mdi-sword-cross </v-icon>
         Start Match
       </v-btn>
@@ -52,9 +52,11 @@ import BackHomeBtn from "../components/BackHomeBtn.vue";
 
 export default Vue.extend({
   name: "SetupScreen",
+
   components: {
     BackHomeBtn,
   },
+
   data() {
     return {
       board_size: 3,
@@ -62,6 +64,17 @@ export default Vue.extend({
       is_red_human: true,
       is_blue_human: true,
     };
+  },
+
+  methods: {
+    build_match_url() {
+      const mode = this.is_simple_game ? "simple" : "general";
+      const red = this.is_red_human ? "human" : "ai";
+      const blue = this.is_blue_human ? "human" : "ai";
+
+      const url = `/match/${mode}/${this.board_size}/${red}/${blue}`;
+      this.$router.push(url);
+    },
   },
 });
 </script>
@@ -74,6 +87,6 @@ export default Vue.extend({
   margin: 0.5em 0;
 }
 #start-btn {
-    margin-top: 3em;
+  margin-top: 3em;
 }
 </style>
