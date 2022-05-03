@@ -31,7 +31,7 @@ const routes: Array<RouteConfig> = [
     component: SetupScreen
   },
   {
-    path: '/match',
+    path: '/match/:mode/:size/:red/:blue',
     name: 'match',
     component: MatchScreen
   },
