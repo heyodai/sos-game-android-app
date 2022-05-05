@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar color="primary" dense dark app>
-      <v-toolbar-title id="app-bar-title">{{ this.title }}</v-toolbar-title>
+      <v-toolbar-title class="app-bar-title">{{ this.title }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -31,9 +31,73 @@
         <v-icon>mdi-undo-variant</v-icon>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn icon @click.stop="stats_dialog = true">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
+
+      <v-dialog v-model="stats_dialog" max-width="290">
+        <v-card>
+          <v-card-title>Match Info</v-card-title>
+          <v-card-text>
+            <v-list>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>mdi-clock</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  {{ this.get_elapsed_time() }}
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon> mdi-shield-sword </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content class="app-bar-title">
+                  {{ this.title }}
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>
+                    {{
+                      this.attrs.red_player.is_human
+                        ? "mdi-account"
+                        : "mdi-desktop-classic"
+                    }}
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  Red player is
+                  {{ this.attrs.red_player.is_human ? "human" : "AI" }}
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon>
+                    {{
+                      this.attrs.blue_player.is_human
+                        ? "mdi-account"
+                        : "mdi-desktop-classic"
+                    }}
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  Blue player is
+                  {{ this.attrs.blue_player.is_human ? "human" : "AI" }}
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="green darken-1" text @click="stats_dialog = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-app-bar>
 
     <v-main app>
@@ -53,6 +117,7 @@
           <v-col>
             <v-switch
               v-model="attrs.red_player.is_letter_s"
+              v-if="this.attrs.red_player.is_human"
               color="primary"
               inset
               :label="`${attrs.red_player.is_letter_s ? 'S' : 'O'}`"
@@ -99,6 +164,7 @@
           <v-col>
             <v-switch
               v-model="attrs.blue_player.is_letter_s"
+              v-if="this.attrs.blue_player.is_human"
               color="primary"
               inset
               :label="`${attrs.blue_player.is_letter_s ? 'S' : 'O'}`"
@@ -164,17 +230,19 @@ export default Vue.extend({
       );
     },
     end_match() {
-      this.$router.push('/')
+      this.$router.push("/");
     },
     get_elapsed_time() {
-      return 0;
+      const current_time = Date.now();
+      const diff = Math.floor(current_time - this.start_time);
+      return new Date(diff).toISOString().slice(11, 19);
     },
   },
 });
 </script>
 
 <style scoped>
-#app-bar-title {
+.app-bar-title {
   text-transform: capitalize;
 }
 </style>
