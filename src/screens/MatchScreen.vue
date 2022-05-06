@@ -111,7 +111,7 @@
                   : "mdi-desktop-classic"
               }}
             </v-icon>
-            <strong> Red Player </strong>
+            <strong> Red Player - Score: {{this.attrs.red_player.score}} </strong>
           </v-col>
 
           <v-col>
@@ -136,9 +136,16 @@
         <table>
           <tbody>
             <tr v-for="i in attrs.size" :key="i">
-              <td v-for="i in attrs.size" :key="i">
-                <v-btn color="gray" height="50" width="50">
-                  <v-icon dark> mdi-minus </v-icon>
+              <td v-for="j in attrs.size" :key="j">
+                <v-btn
+                  color="gray"
+                  height="50"
+                  width="50"
+                  :id="`${i - 1}_${j - 1}`"
+                  icon
+                  @click="on_square_click"
+                >
+                  <v-icon dark> {{ attrs.icons[i-1][j-1] }} </v-icon>
                 </v-btn>
               </td>
             </tr>
@@ -158,7 +165,7 @@
                   : "mdi-desktop-classic"
               }}
             </v-icon>
-            <strong> Blue Player </strong>
+            <strong> Blue Player - Score: {{this.attrs.blue_player.score}} </strong>
           </v-col>
 
           <v-col>
@@ -182,8 +189,12 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { GameMode, PlayerColor } from "@/enums";
+import { GameMode, PlayerColor, Letter } from "@/enums";
 import Match from "../classes/Match";
+
+import MoveRequestAi from "../actions/MoveRequestAi"
+import MoveProposalHuman from "../actions/MoveProposalHuman"
+import Coordinates from "../classes/Coordinates"
 
 export default Vue.extend({
   name: "MatchScreen",
@@ -195,17 +206,26 @@ export default Vue.extend({
           is_human: this.$route.params.red == "human",
           is_letter_s: false,
           is_current_player: true,
+          score: 0,
         },
         blue_player: {
           is_human: this.$route.params.blue == "human",
           is_letter_s: false,
           is_current_player: false,
+          score: 0,
         },
         mode:
           this.$route.params.mode == "simple"
             ? GameMode.SIMPLE
             : GameMode.GENERAL,
         size: parseInt(this.$route.params.size),
+        icons: [
+          [ 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', ],
+          [ 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', ],
+          [ 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', ],
+          [ 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', ],
+          [ 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', 'mdi-minus', ],
+        ],
       },
       start_time: 0,
       title: `${this.$route.params.mode} Match`,
@@ -232,10 +252,71 @@ export default Vue.extend({
     end_match() {
       this.$router.push("/");
     },
-    get_elapsed_time() {
+    /**
+     * Get a string with elapsed time.
+     * @return Elapsed time for match, formatted as HH:MM:SS
+     */
+    get_elapsed_time(): string {
       const current_time = Date.now();
       const diff = Math.floor(current_time - this.start_time);
       return new Date(diff).toISOString().slice(11, 19);
+    },
+    on_square_click(event: any) {
+      const id = event.srcElement.id
+      const row: number = id.slice(0, 1)
+      const column: number = parseFloat(id.slice(2))
+      console.log(row)
+
+      const action = this.build_move_action(row, column)
+      const reply = action.is_ai ? this.match.get_ai_move(action) : this.match.check_human_move(action as MoveProposalHuman)
+      console.log(reply)
+
+      if (reply.is_accepted) {
+        this.attrs.icons[row][column] = reply.letter == Letter.S ? 'mdi-alpha-s' : 'mdi-alpha-o'
+        
+        if (reply.is_scoring) {
+          if (reply.player == PlayerColor.RED) {
+            this.attrs.red_player.score += 1
+          }
+          else {
+            this.attrs.blue_player.score += 1
+          }
+        }
+
+        if (reply.is_winning) {
+          alert(`${reply.player == PlayerColor.RED ? 'Red' : 'Blue'} wins!`)
+        }
+        else {
+          this.next_turn()
+        }
+      }
+    },
+    build_move_action(row: number, column: number): MoveRequestAi | MoveProposalHuman {
+      const player = this.attrs.red_player.is_current_player
+        ? PlayerColor.RED
+        : PlayerColor.BLUE;
+
+      const is_human = player == PlayerColor.RED
+        ? this.attrs.red_player.is_human
+        : this.attrs.blue_player.is_human;
+
+      if (is_human) {
+        const is_letter_s = player == PlayerColor.RED
+          ? this.attrs.red_player.is_letter_s
+          : this.attrs.blue_player.is_letter_s;
+
+        const letter = is_letter_s ? Letter.S : Letter.O
+        const location = new Coordinates(row, column)
+
+        return new MoveProposalHuman(player, letter, location)
+      }
+      else {
+        return new MoveRequestAi(player)
+      }
+    },
+    next_turn() {
+      this.attrs.red_player.is_current_player = !this.attrs.red_player.is_current_player
+      this.attrs.blue_player.is_current_player = !this.attrs.blue_player.is_current_player
     },
   },
 });

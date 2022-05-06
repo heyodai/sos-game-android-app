@@ -35,7 +35,10 @@ class Board {
      * @returns Square of requested location, or an empty square if out of bounds
      */
     public get_square(location: Coordinates): Square {
-        if (location.row < this.rows && location.column < this.columns) {
+        console.log(location)
+
+        if (location.row < this.rows && location.row >= 0
+            && location.column < this.columns && location.column >= 0) {
             return this.content[location.row][location.column]
         }
         else {
