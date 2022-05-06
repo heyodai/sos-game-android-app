@@ -1,5 +1,4 @@
 import { Direction } from '../enums'
-import Vector from './Vector'
 
 /**
  * Class for containing a row/column pair.
@@ -19,11 +18,11 @@ class Coordinates {
      * @param vector Vector object indicating the direction to offset
      * @returns Coordinates object offset by the requested vector
      */
-    public get_offset(vector: Vector): Coordinates {
+    public get_offset(direction: Direction): Coordinates {
         let row_offset: number = this.row
         let column_offset: number = this.column
 
-        switch(vector.direction) {
+        switch(direction) {
             case Direction.UP:
                 column_offset -= 1
                 break
