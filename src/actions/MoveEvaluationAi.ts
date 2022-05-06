@@ -1,6 +1,9 @@
 import Coordinates from "@/classes/Coordinates"
 import { PlayerColor, Letter, } from "@/enums"
 
+/**
+ * Class for evaluation responses to AI moves.
+ */
 class MoveEvaluationAi {
     public player: PlayerColor
     public letter: Letter
@@ -8,6 +11,7 @@ class MoveEvaluationAi {
 
     public is_scoring: boolean
     public is_winning: boolean
+    public is_accepted = false
 
     constructor(player: PlayerColor, letter: Letter, location: Coordinates, 
         is_scoring: boolean, is_winning: boolean) {
